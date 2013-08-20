@@ -2,6 +2,6 @@
   <li ng-repeat="tab in tabs" ng-class="{active: tab==currentFile}">
     <a href="#/editor/{{tab}}">{{tab}}</a>
   </li>
+  <li><button ng-click="save()"> save </button>
 </ul>
-
-<div id="editor" ui-ace ng-model="backend.files[currentFile]"></div>
+<div id="editor" ui-ace ng-model="backend.files[currentFile].content"></div>
