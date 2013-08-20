@@ -3,20 +3,27 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function(){
-  beforeEach(module('controllers'));
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
+  beforeEach(module('GFAce.controllers'));
 
   describe('Editor controllers', function() {
     describe('EditorCtrl', function(){
-      it('hould create "files" model with 2 files', inject(function($rootScope, $controller) {
+      it('should pick the right file from the backend', inject(function($rootScope, $controller) {
+        var mockBackend = {
+          files: {
+            'MyAbstract.gf':
+              'abstract MyAbstract = {\n  cat Greeting ;\n}',
+            'MyConcrete.gf':
+            'concrete MyContrete of MyAbstract = {\n  lincat Greeting = str ;\n  lin hi = \"Hello world!\" ;\n}'
+        }};
         //spec body
         var scope = $rootScope.$new(),
-            ctrl = $controller("EditorCtrl", {$scope: scope });
-        expect(scope.data['MyAbstract.gf']).not.toBe(null);
-        expect(scope.data['MyConcrete.gf']).not.toBe(null);
+            ctrl = $controller("EditorCtrl", {
+              $scope: scope,
+              $routeParams: {file: 'MyAbstract.gf'},
+              backend: mockBackend
+            });
+        expect(scope.currentFile).toBe('MyAbstract.gf');
+        expect(scope.tabs).toEqual([ 'MyAbstract.gf', 'MyConcrete.gf' ]);
       }));
     });
   });
