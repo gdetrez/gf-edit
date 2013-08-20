@@ -1,5 +1,10 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<ul class="nav nav-tabs" id="myTab">
+  <li><a href="#/view1">MyAbstract.gf</a></li>
+  <li class="active"><a href="#/view2">MyConcrete.gf</a></li-->
+</ul>
+
+<div id="editor">concrete MyContrete of MyAbstract = {
+  lincat Greeting = str ;
+  lin hi = "Hello world!" ;
+}</div>
+<script> var editor = ace.edit("editor"); </script>
