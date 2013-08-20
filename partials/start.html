@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <tr><th>Gist<th>description
+      <tr ng-repeat="gist in gists">
+        <td><a href="#/open/{{ gist.id }}">{{ firstFile(gist) }}</a></td>
+        <td>{{ gist.description }}</td>
+        <td><a href="#/open/{{ gist.id }}">Edit</a></td>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <a href="#/new">Create a new grammar</a>
+  </div>
+</div>
