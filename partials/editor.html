@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs" id="myTab">
+  <li ng-repeat="tab in tabs" ng-class="{active: tab==currentFile}">
+    <a href="#/editor/{{tab}}">{{tab}}</a>
+  </li>
+</ul>
+
+<div id="editor" ui-ace ng-model="backend.files[currentFile]"></div>

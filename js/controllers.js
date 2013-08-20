@@ -2,14 +2,11 @@
 
 /* Controllers */
 
-angular.module('controllers', []).
-  controller('EditorCtrl', ['$scope', function($scope) {
-    $scope.data = {
-      'MyAbstract.gf':
-        'abstract MyAbstract = {\n  cat Greeting ;\n}',
-      'MyConcrete.gf':
-        'concrete MyContrete of MyAbstract = {\n  lincat Greeting = str ;\n  lin hi = \"Hello world!\" ;\n}'
-      };
+angular.module('GFAce.controllers', []).
+  controller('EditorCtrl', ['$scope', '$routeParams', 'backend', function($scope, $routeParams, backend) {
+    $scope.currentFile = $routeParams.file;
+    $scope.backend = backend;
+    $scope.tabs = Object.keys(backend.files)
   }])
   .controller('MyCtrl2', [function() {
 
