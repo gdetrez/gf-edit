@@ -8,6 +8,6 @@ angular.module('GFAce.controllers', []).
     $scope.backend = backend;
     $scope.tabs = Object.keys(backend.files)
   }])
-  .controller('MyCtrl2', [function() {
+  .controller('LoginCtrl', [function() {
 
   }]);
