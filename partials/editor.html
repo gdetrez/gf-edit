@@ -5,13 +5,18 @@
 </ul>
 <div class="col-md-2">
   <div class="btn-group btn-block">
-    <button type="button" class="btn btn-default">Save &amp; build</button>
+    <button type="button" class="btn btn-default" ng-click="save()">
+      Save
+    </button>
+    <button type="button" class="btn btn-default" ng-click="compile()">
+      Compile
+    </button>
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="#">Save</a></li>
-      <li><a href="#">Build</a></li>
+      <li><a href="#" ng-click="minibar()">Minibar</a></li>
+      <li><a href="#" ng-click="quiz()">Quiz</a></li>
     </ul>
   </div>
 </div>
