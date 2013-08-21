@@ -1,14 +1,29 @@
-<div class="row">
-  <div class="col-md-6">
-    <table class="table">
-      <tr><th>Gist<th>description
-      <tr ng-repeat="gist in gists">
-        <td><a href="#/open/{{ gist.id }}">{{ firstFile(gist) }}</a></td>
-        <td>{{ gist.description }}</td>
-        <td><a href="#/open/{{ gist.id }}">Edit</a></td>
-    </table>
-  </div>
-  <div class="col-md-6">
-    <a href="#/new">Create a new grammar</a>
+<div class="container"><div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h2>Create a new grammar</h2>
+    <div style="text-align:right;">
+      <div class="btn-group">
+        <a type="button" class="btn btn-primary btn-lg" href="#/editor/create">
+          Empty grammar
+        </a>
+        <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" style="text-align:left;">
+          <li role="presentation" class="dropdown-header">Templates</li>
+          <li><a href="#/editor/create/food">Food grammar</a></li>
+          <li><a href="#/editor/create/phrasebook">Phrasebook grammar</a></li>
+          <li><a href="#/editor/create/mini">Mini resource</a></li>
+        </ul>
+      </div>
+    </div>
+  <h2>Open existing gist</h2>
+  <table class="table">
+    <tr><th>Gist<th>description<th>
+    <tr ng-repeat="gist in gists">
+      <td><a href="#/open/{{ gist.id }}">{{ firstFile(gist) }}</a></td>
+      <td>{{ gist.description }}</td>
+      <td><a href="#/open/{{ gist.id }}">Edit</a></td>
+  </table>
   </div>
 </div>

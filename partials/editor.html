@@ -1,7 +1,19 @@
-<ul class="nav nav-tabs" id="myTab">
+<ul class="nav nav-tabs col-md-10">
   <li ng-repeat="tab in tabs" ng-class="{active: tab==currentFile}">
     <a href="#/editor/{{tab}}">{{tab}}</a>
   </li>
-  <li><button ng-click="save()"> save </button>
+</ul>
+<div class="col-md-2">
+  <div class="btn-group btn-block">
+    <button type="button" class="btn btn-default">Save &amp; build</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">Save</a></li>
+      <li><a href="#">Build</a></li>
+    </ul>
+  </div>
+</div>
 </ul>
 <div id="editor" ui-ace ng-model="backend.files[currentFile].content"></div>
