@@ -126,7 +126,7 @@ angular.module('GFAce.services', []).
           });
         return deferred.promise;
       },
-      logout: function() { delete $cookies.githubToken; $cookies.githubUser = null;},
+      logout: function() { delete $cookies.githubToken; delete $cookies.githubUser;},
 
       // Get the list of gists
       list: function() {
