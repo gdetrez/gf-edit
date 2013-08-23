@@ -88,4 +88,10 @@ angular.module('GFAce.controllers', []).
         $scope.error = reason;
       }
       )
+  }]).
+
+  // A controller for the navbar
+  controller('NavbarCtrl', ['$scope', 'gist', function($scope, gist) {
+    $scope.username = gist.getUsername();
+    $scope.logout = gist.logout;
   }]);

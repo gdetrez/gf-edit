@@ -104,6 +104,7 @@ angular.module('GFAce.services', []).
     //httpparams['access_token'] = 'bf1fcd95368f34ba2848ded6f14f74bbe5f79725';
     var service = {
       hasToken: function() { return $cookies.githubToken != null ; },
+      getUsername: function() { return $cookies.githubUser; },
       login: function(username, password) {
         var deferred = $q.defer();
         var encoded = Base64.encode(username + ':' + password);
@@ -115,7 +116,8 @@ angular.module('GFAce.services', []).
         }).then(
           function(data) {
             console.log(data);
-            $cookies.githubToken = data.data.token
+            $cookies.githubToken = data.data.token;
+            $cookies.githubUser = username;
             deferred.resolve(true);
           },
           function(reason) {
@@ -124,7 +126,7 @@ angular.module('GFAce.services', []).
           });
         return deferred.promise;
       },
-      forgetToken: function() { $cookies.githubToken = null; },
+      logout: function() { delete $cookies.githubToken; $cookies.githubUser = null;},
 
       // Get the list of gists
       list: function() {
