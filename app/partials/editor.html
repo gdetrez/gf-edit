@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs col-md-10">
   <li ng-repeat="tab in tabs" ng-class="{active: tab==currentFile}">
-    <a href="#/editor/{{tab}}">{{tab}}</a>
+  <a href="#/e/{{gistid}}/{{tab}}">{{tab}}</a>
   </li>
 </ul>
 <div class="col-md-2">
@@ -38,8 +38,11 @@
                role="progressbar" style="width: 100%">
           </div>
         </div>
-        <pre>$ {{ buildCommand }}
+        <pre ng-show="buildCommand != null || buildOutput != null">$ {{ buildCommand }}
 {{ buildOutput }}</pre>
+        <div class="alert alert-danger" ng-show="buildError">
+          {{ buildError }}
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="buildStatus == null">Close</button>

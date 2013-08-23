@@ -1,9 +1,9 @@
 <form class="form-signin">
-  <div class="alert alert-danger alert-dismissable">inth</div>
   <h2 class="form-signin-heading">Please sign in</h2>
-  <input type="text" class="form-control" placeholder="Github user" autofocus>
-  <input type="password" class="form-control" placeholder="Password">
-  <button type="button" class="btn btn-primary btn-lg btn-block">
+  <div class="alert alert-danger" ng-show="error"> {{ error }} </div>
+  <input type="text" class="form-control" placeholder="Github user" ng-model="username" autofocus>
+  <input type="password" class="form-control" placeholder="Password" ng-model="password">
+  <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="login()">
     Login with Github <span class="glyphicon glyphicon-user"></span>
   </button>
 </form>

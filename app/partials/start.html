@@ -6,18 +6,7 @@
       </div>
       <div class="panel-body" style="text-align:right;">
         <div class="btn-group">
-          <a type="button" class="btn btn-primary btn-lg" href="#/editor/create">
-            Empty grammar
-          </a>
-          <a class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu" role="menu" style="text-align:left;">
-            <li role="presentation" class="dropdown-header">Templates</li>
-            <li><a href="#/editor/create/food">Food grammar</a></li>
-            <li><a href="#/editor/create/phrasebook">Phrasebook grammar</a></li>
-            <li><a href="#/editor/create/mini">Mini resource</a></li>
-          </ul>
+          <a type="button" class="btn btn-primary" href="#/new">New grammar</a>
         </div>
       </div>
     </div>
@@ -25,12 +14,25 @@
       <div class="panel-heading">
         <h3 class="panel-title">Open existing gist</h3>
       </div>
-      <table class="table">
+
+      <div class="panel-body" ng-show="!gists">
+        <div class="alert alert-danger" ng-show="error">{{ error }}</div>
+        <div ng-show="!gists && !error" class="col-md-8 col-md-offset-2">
+          Loading gists…
+          <div class="progress progress-striped active">
+            <div class="progress-bar"  role="progressbar" style="width: 100%">
+              <span class="sr-only">Opening gist...</span>
+           </div>
+          </div>
+        </div>
+      </div>
+      <table class="table" ng-show="gists != null">
         <tr><th>Gist<th>description<th>
         <tr ng-repeat="gist in gists">
           <td><a href="#/open/{{ gist.id }}">{{ firstFile(gist) }}</a></td>
           <td>{{ gist.description }}</td>
           <td><a href="#/open/{{ gist.id }}">Edit</a></td>
+        <tr ng-show="gists.length == 0"> <td colspan="3"> <p class="text-muted text-center">No gist yet, create a new grammar</p> </td> </tr>
       </table>
     </div>
   </div>
