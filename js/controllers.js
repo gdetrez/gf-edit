@@ -4,7 +4,13 @@
 
 angular.module('GFAce.controllers', []).
   controller('EditorCtrl', ['$scope', '$routeParams', 'backend', '$location', 'gf', function($scope, $routeParams, backend, $location, gf) {
+    // First  we make sure that we have the correct gist in the backend
+    if ($routeParams.gistid != backend.gistid) {
+      $location.path('/open/' + $routeParams.gistid);
+    }
+    // If a file is specified, we open this file
     if ($routeParams.file) {
+      $scope.gistid = $routeParams.gistid;
       $scope.currentFile = $routeParams.file;
       $scope.backend = backend;
       $scope.tabs = backend.ls();
@@ -19,23 +25,35 @@ angular.module('GFAce.controllers', []).
             $scope.buildOutput  = data.data.output;
           },
           function(reason) {
+            $scope.buildStatus = 'Error';
+            $scope.buildError  = 'Network error';
             console.log(reason);
           });
       };
     } else {
       if (backend.ls().length > 0) {
-        $location.path('/editor/' + backend.ls()[0]);
+        $location.path('/e/' + $routeParams.gistid + '/' + backend.ls()[0]);
       }
       else
-        $location.path('/editor/new');
+        $location.path('/e/' + $routeParams.gistid + '/new');
     }
 
   }]).
-  controller('LoginCtrl', ['$location', function(l) {
-    l.path('/start');
+  controller('LoginCtrl', ['$location', 'gist', '$scope', function(l,gist,$scope) {
+    if(gist.hasToken())
+      l.path('/start');
+    $scope.login = function() {
+      gist.login($scope.username, $scope.password).then(
+        function() {
+          l.path('/start');
+        },
+        function(reason) {
+          $scope.error = reason;
+        });
+    };
   }]).
-  controller('StartCtrl', ['$scope', '$http', function($scope,$http) {
-    $http.get('https://api.github.com/gists', {params: {access_token: 'bf1fcd95368f34ba2848ded6f14f74bbe5f79725'}}).success(function(data) {
+  controller('StartCtrl', ['$scope', 'gist', function($scope, gist) {
+    gist.list().success(function(data) {
       $scope.gists = data;
       $scope.firstFile = function(_gist) { for (var f in _gist.files) return f; };
     });
@@ -47,11 +65,27 @@ angular.module('GFAce.controllers', []).
         // On success
         function() {
           console.log("Success!");
-          $location.path("/editor");
+          $location.path("/e/" + $routeParams.gistid);
         },
         // on reject
         function(reason) {
           $scope.error = reason;
         }
         )
+  }]).
+
+  controller('NewCtrl', ['$scope', '$location', 'backend', function($scope, $location, backend) {
+    $scope.title = "Creating gist..."
+    console.log('Create a grammar');
+    backend.create().then(
+      // On success
+      function(gistid) {
+        console.log("Creation succeeded");
+        $location.path("/e/" + gistid);
+      },
+      // on reject
+      function(reason) {
+        $scope.error = reason;
+      }
+      )
   }]);
