@@ -22,3 +22,29 @@
 </div>
 </ul>
 <div id="editor" ui-ace ng-model="backend.files[currentFile].content"></div>
+
+<div class="modal fade" id="buildModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Compile</h4>
+      </div>
+      <div class="modal-body">
+        Compiling grammar…
+        <div class="progress" ng-class="{'progress-striped': (!buildStatus), active: (!buisdStatus)}">
+          <div class="progress-bar"
+               ng-class="{'progress-bar-success': (buildStatus == 'OK'),
+                          'progress-bar-danger': (buildStatus == 'Error')}"
+               role="progressbar" style="width: 100%">
+          </div>
+        </div>
+        <pre>$ {{ buildCommand }}
+{{ buildOutput }}</pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="buildStatus == null">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

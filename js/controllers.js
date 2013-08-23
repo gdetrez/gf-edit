@@ -3,12 +3,25 @@
 /* Controllers */
 
 angular.module('GFAce.controllers', []).
-  controller('EditorCtrl', ['$scope', '$routeParams', 'backend', '$location', function($scope, $routeParams, backend, $location) {
+  controller('EditorCtrl', ['$scope', '$routeParams', 'backend', '$location', 'gf', function($scope, $routeParams, backend, $location, gf) {
     if ($routeParams.file) {
       $scope.currentFile = $routeParams.file;
       $scope.backend = backend;
       $scope.tabs = backend.ls();
       $scope.save = backend.save;
+      $scope.compile = function() {
+        $('#buildModal').modal('show');
+        gf.make(backend.files).then(
+          function(data) {
+            console.log(data);
+            $scope.buildStatus  = data.data.errorcode;
+            $scope.buildCommand = data.data.command;
+            $scope.buildOutput  = data.data.output;
+          },
+          function(reason) {
+            console.log(reason);
+          });
+      };
     } else {
       if (backend.ls().length > 0) {
         $location.path('/editor/' + backend.ls()[0]);

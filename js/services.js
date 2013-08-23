@@ -14,7 +14,7 @@ angular.module('GFAce.services', []).
       'MyAbstract.gf':
         'abstract MyAbstract = {\n  cat Greeting ;\n}',
       'MyConcrete.gf':
-        'concrete MyContrete of MyAbstract = {\n  lincat Greeting = str ;\n  lin hi = \"Hello world!\" ;\n}'
+        'concrete MyConcrete of MyAbstract = {\n  lincat Greeting = Str ;\n  lin hi = \"Hello world!\" ;\n}'
       };
     // Open a grammar by loading the gist and the file content from github
     service.open = function(gistid) {
@@ -82,5 +82,22 @@ angular.module('GFAce.services', []).
         httpparams['access_token'] = 'bf1fcd95368f34ba2848ded6f14f74bbe5f79725';
         return $http({method: 'PATCH', url: APIURL + '/gists/' + id, data: data, params: httpparams } );
       }};
+    return service;
+  }]).
+
+  factory('gf', ['$http', '$q', function($http,$q) {
+    var APIURL = 'http://cloud.grammaticalframework.org';
+    var TMPDIR = '/tmp/gfse.1235190033';
+    var service = {
+      make: function(files) {
+        var httpparams = {};
+        httpparams['dir'] = TMPDIR;
+        httpparams['command'] = 'make';
+        for (var f in files) httpparams[f] = files[f].content;
+        $http.defaults.useXDomain = true;
+        delete $http.defaults.headers.common['X-Requested-With'];
+        return $http.get(APIURL + '/cloud', {params: httpparams});
+      }
+    };
     return service;
   }]);
